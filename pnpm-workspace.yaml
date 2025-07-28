@@ -1,0 +1,2 @@
+packages:
+  - "../sei-x402/typescript/packages/*"
