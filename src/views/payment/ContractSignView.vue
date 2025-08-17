@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import type { Contract } from '../../types';
-import ApiService from '../../api/api-service';
 import SignatureMsg from '../../types/signature';
 import { config } from '../../utils/wallet-config';
 import { signMessage } from '@wagmi/core';
