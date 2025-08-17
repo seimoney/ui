@@ -11,7 +11,7 @@ import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const route = useRoute();
 const paymentId = route.params.id as Hex;
-const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const paymentLink = ref<PaymentLink | null>(null);
 const isLoading = ref(true);
@@ -96,7 +96,7 @@ const formatAddress = (address: string) => {
                     <h2>{{ paymentLink.description }}</h2>
                     <div class="payment-amount">
                         <span class="amount">{{ paymentLink.amount.amount }} {{ paymentLink.amount.token.symbol
-                            }}</span>
+                        }}</span>
                         <img :src="paymentLink.amount.token.icon" :alt="paymentLink.amount.token.symbol"
                             class="token-icon" />
                     </div>
@@ -108,7 +108,7 @@ const formatAddress = (address: string) => {
                         <div class="detail-item">
                             <span class="label">Amount:</span>
                             <span class="value">{{ paymentLink.amount.amount }} {{ paymentLink.amount.token.symbol
-                                }}</span>
+                            }}</span>
                         </div>
                         <div class="detail-item">
                             <span class="label">Token:</span>

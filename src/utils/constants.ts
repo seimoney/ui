@@ -1,5 +1,5 @@
 import type { Hex } from "viem";
-import type { Day, Strategy, Token } from "../types";
+import type { Strategy, Token } from "../types";
 
 const tokens: Token[] = [
   {
@@ -76,15 +76,15 @@ const timezones = [
   "Australia/Sydney",
 ];
 
-const days: Day[] = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
+const days: Record<number, string> = {
+  0: "Sunday",
+  1: "Monday",
+  2: "Tuesday",
+  3: "Wednesday",
+  4: "Thursday",
+  5: "Friday",
+  6: "Saturday",
+};
 
 export {
   tokens,

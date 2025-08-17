@@ -1,5 +1,5 @@
 import type { Hex } from "viem";
-import type { Network } from "../../../sei-x402/typescript/packages/x402/src/types";
+import type { Network } from "@seimoney/sei-x402/types";
 
 type Token = {
   name: string;
@@ -326,6 +326,5 @@ export type {
   Image,
   ImageFile,
   Checkout,
-  Day,
   CreateProduct,
 };

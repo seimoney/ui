@@ -11,7 +11,7 @@ import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const route = useRoute();
 const contractId = route.params.id as string;
-const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const contract = ref<Contract | null>(null);
 const isLoading = ref(true);

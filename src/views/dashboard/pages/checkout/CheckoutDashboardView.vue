@@ -2,21 +2,22 @@
 import { onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import type { Product, Checkout } from '../../../../types';
-import ApiService from '../../../../api/api-service';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const isLoading = ref(true);
 const checkout = ref<Checkout | null>(null);
 const products = ref<Product[]>([]);
 const stats = ref({ totalProducts: 0, totalEarnings: '0', currency: 'USDC' });
 const showCreateCheckout = ref(false);
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const loadCheckoutData = async () => {
     isLoading.value = true;
     try {
-        const checkoutData = await ApiService.getCheckout();
+        const checkoutData = await sdk.products.getCheckout();
 
         checkout.value = checkoutData;
-        products.value = await ApiService.getProducts();
+        products.value = await sdk.products.getProducts();
     } catch (error) {
         showCreateCheckout.value = true;
         console.error('Error loading checkout data:', error);

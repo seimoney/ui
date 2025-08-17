@@ -7,7 +7,7 @@ import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const router = useRouter();
 const isLoading = ref(false);
-const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const images = ref<ImageFile[]>([]);
 
@@ -170,7 +170,7 @@ const updateTokenAddress = () => {
                             <input id="stock" v-model.number="form.availableInStock" type="number" min="1"
                                 :class="{ 'error': errors.availableInStock }" />
                             <span v-if="errors.availableInStock" class="error-message">{{ errors.availableInStock
-                            }}</span>
+                                }}</span>
                         </div>
 
                         <div class="form-group">

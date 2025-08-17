@@ -5,7 +5,7 @@ import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const isLoading = ref(true);
 const analytics = ref<Analytics | null>(null);
-const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
@@ -99,7 +99,7 @@ onMounted(async () => {
                             </div>
                             <div class="chart-labels">
                                 <span v-for="label in Object.keys(analytics.recentRevenues)" :key="label">{{ label
-                                }}</span>
+                                    }}</span>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@ onMounted(async () => {
                             </div>
                             <div class="chart-labels">
                                 <span v-for="label in Object.keys(analytics.activeContracts)" :key="label">{{ label
-                                }}</span>
+                                    }}</span>
                             </div>
                         </div>
                     </div>

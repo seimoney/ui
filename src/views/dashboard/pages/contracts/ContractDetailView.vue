@@ -2,13 +2,14 @@
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import type { Contract, Activity, ERC20Amount, Token } from '../../../../types';
-import ApiService from '../../../../api/api-service';
 import { TokenContract } from '../../../../smart_contract/erc20';
 import { formatUnits, parseUnits } from 'viem';
 import { tokens } from '../../../../utils/constants';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const route = useRoute();
 const router = useRouter();
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const isLoading = ref(true);
 const contract = ref<Contract | null>(null);
@@ -57,8 +58,8 @@ const depositToAccount = async () => {
 const getContract = async () => {
     isLoading.value = true;
     try {
-        contract.value = await ApiService.getContract(contractId);
-        activities.value = await ApiService.getActivitiesFor(contractId);
+        contract.value = await sdk.contracts.getContract(contractId);
+        activities.value = await sdk.analytics.getActivitiesFor(contractId);
         getBalance();
     } catch (error) {
         console.error('Error fetching contract:', error);
@@ -73,7 +74,7 @@ const selectToken = (token: Token) => {
 const retryPayment = async (activityId: string) => {
     isRetryingPayment.value = true;
     try {
-        await ApiService.fulfillContractTransaction(activityId);
+        await sdk.contracts.fulfillContractTransaction(activityId);
         await getContract();
     } catch (error) {
         console.error('Error retrying payment:', error);

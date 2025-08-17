@@ -8,7 +8,7 @@ import { SavingsAccountContract, SeiMoneyContract } from "../smart_contract";
 
 export function useAuth() {
   const walletStore = useWalletStore();
-  const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
+  const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
   const login = async (owner: Hex): Promise<boolean> => {
     if (walletStore.account) return true;

@@ -11,7 +11,7 @@ import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const route = useRoute();
 const fileId = route.params.id as string;
-const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const gatedFile = ref<GatedFile | null>(null);
 const downloadRes = ref<{ url: string; transaction: string; } | null>(null);
@@ -128,7 +128,7 @@ const getFileTypeIcon = (fileType: string) => {
 
                         <div class="file-price">
                             <span class="amount">{{ gatedFile.amount.amount }} {{ gatedFile.amount.token.symbol
-                                }}</span>
+                            }}</span>
                             <img :src="gatedFile.amount.token.icon" :alt="gatedFile.amount.token.symbol"
                                 class="token-icon" />
                         </div>

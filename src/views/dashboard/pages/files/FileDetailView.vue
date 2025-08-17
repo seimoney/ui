@@ -5,7 +5,7 @@ import { Activity, GatedFile } from '../../../../types';
 import SignatureMsg from '../../../../types/signature';
 import { signMessage } from '@wagmi/core';
 import { config } from '../../../../utils/wallet-config';
-import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk/sei-money-sdk';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 const route = useRoute();
 const router = useRouter();
 
@@ -14,7 +14,7 @@ const file = ref<GatedFile | null>(null);
 const activities = ref<Activity[]>([]);
 const isDownloading = ref(false);
 const isDeleting = ref(false);
-const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const fileId = route.params.id as string;
 

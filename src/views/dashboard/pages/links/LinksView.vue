@@ -6,7 +6,7 @@ import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const isLoading = ref(true);
 const links = ref<PaymentLink[]>([]);
-const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const getLinks = async () => {
     isLoading.value = true;

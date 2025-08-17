@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import type { Contract } from '../../../../types';
-import ApiService from '../../../../api/api-service';
 import { RouterLink } from 'vue-router';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const isLoading = ref(true);
 const contracts = ref<Contract[]>([]);
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const getContracts = async () => {
     isLoading.value = true;
-    contracts.value = await ApiService.getContracts();
+    contracts.value = await sdk.contracts.getContracts();
     isLoading.value = false;
 };
 

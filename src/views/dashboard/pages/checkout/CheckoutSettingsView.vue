@@ -1,21 +1,22 @@
 <script setup lang="ts">
 import { onMounted, ref, } from 'vue';
 import { useRouter } from 'vue-router';
-import type { Checkout, Day } from '../../../../types';
-import ApiService from '../../../../api/api-service';
+import type { Checkout } from '../../../../types';
 import { categories, days, timezones } from '../../../../utils/constants';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const router = useRouter();
 
 const isLoading = ref(true);
 const isSaving = ref(false);
 const checkout = ref<Checkout | null>(null);
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 
 const getCheckout = async () => {
     isLoading.value = true;
     try {
-        checkout.value = await ApiService.getCheckout();
+        checkout.value = await sdk.products.getCheckout();
     } catch (error) {
         console.error('Error loading checkout:', error);
     } finally {
@@ -23,10 +24,11 @@ const getCheckout = async () => {
     }
 };
 
-const toggleWorkingDay = (day: Day) => {
+const toggleWorkingDay = (day: number) => {
     if (!checkout.value) return;
 
     const index = checkout.value.schedule.workingDays.indexOf(day);
+
     if (index > -1) {
         checkout.value.schedule.workingDays.splice(index, 1);
     } else {
@@ -166,9 +168,10 @@ onMounted(() => {
                         <div class="checkout-group full-width">
                             <label>Working Days</label>
                             <div class="working-days">
-                                <button v-for="day in days" :key="day" type="button" @click="toggleWorkingDay(day)"
-                                    class="day-btn" :class="{ 'active': checkout.schedule.workingDays.includes(day) }">
-                                    {{ day.slice(0, 3) }}
+                                <button v-for="day in Object.keys(days)" :key="day" type="button"
+                                    @click="toggleWorkingDay(Number(day))" class="day-btn"
+                                    :class="{ 'active': checkout.schedule.workingDays.includes(Number(day)) }">
+                                    {{ days[Number(day)].slice(0, 3) }}
                                 </button>
                             </div>
                         </div>

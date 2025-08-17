@@ -3,11 +3,12 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import type { CreateContract } from '../../../../types';
 import { tokens } from '../../../../utils/constants';
-import ApiService from '../../../../api/api-service';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const router = useRouter();
+const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
-const form = ref<CreateContract & { file: File | null; }>({
+const form = ref<CreateContract & { file: File | undefined; }>({
     name: '',
     role: {
         title: '',
@@ -23,7 +24,7 @@ const form = ref<CreateContract & { file: File | null; }>({
     },
     company: '',
     metadata: {},
-    file: null,
+    file: undefined,
     network: 'sei-testnet'
 });
 
@@ -85,7 +86,7 @@ const handleFile = async (file: File) => {
 
     try {
         isExtracting.value = true;
-        const extract = await ApiService.extractContract(file);
+        const extract = await sdk.contracts.extractContract(file);
 
         if (extract.name && !form.value.name) {
             form.value.name = extract.name;
@@ -133,7 +134,7 @@ const handleSubmit = async () => {
     isLoading.value = true;
 
     try {
-        const created = await ApiService.createContract(form.value, form.value.file);
+        const created = await sdk.contracts.createContract(form.value, form.value.file);
 
         if (!created) return;
 
@@ -195,7 +196,7 @@ const formatFileSize = (bytes: number) => {
                                 <p v-if="isExtracting">AI: Extracting form fields from document.</p>
                             </div>
                         </div>
-                        <button type="button" @click="form.file = null;" class="remove-file">
+                        <button type="button" @click="form.file = undefined;" class="remove-file">
                             ✕
                         </button>
                     </div>
