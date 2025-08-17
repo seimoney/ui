@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import ApiService from '../../../api/api-service';
 import { Analytics } from '../../../types';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const isLoading = ref(true);
 const analytics = ref<Analytics | null>(null);
+const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
 
 const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
@@ -20,7 +21,7 @@ const formatDate = (date: Date) => {
 
 onMounted(async () => {
     try {
-        analytics.value = await ApiService.getAnalytics();
+        analytics.value = await sdk.analytics.getAnalytics();
     } catch (error) {
     } finally {
         isLoading.value = false;

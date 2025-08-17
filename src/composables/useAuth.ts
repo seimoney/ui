@@ -1,13 +1,14 @@
+import { createSeiMoneySDK } from "@seimoney/sdk/src/sdk";
 import { useWalletStore } from "../stores/wallet";
-import ApiService from "../api/api-service";
 import SignatureMsg from "../types/signature";
 import type { Hex } from "viem";
-import { getWalletClient, signMessage } from "@wagmi/core";
+import { signMessage } from "@wagmi/core";
 import { config } from "../utils/wallet-config";
 import { SavingsAccountContract, SeiMoneyContract } from "../smart_contract";
 
 export function useAuth() {
   const walletStore = useWalletStore();
+  const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
 
   const login = async (owner: Hex): Promise<boolean> => {
     if (walletStore.account) return true;
@@ -17,7 +18,7 @@ export function useAuth() {
 
     const signature = await signMessage(config, { message });
 
-    const tokenAccount = await ApiService.authorize({
+    const tokenAccount = await sdk.auth.authorize({
       owner,
       signature,
       expiresAt,
@@ -26,8 +27,7 @@ export function useAuth() {
     if (!tokenAccount) return false;
 
     walletStore.setAccount(tokenAccount);
-    ApiService.setToken(tokenAccount.token);
-    localStorage.setItem("token", tokenAccount.token);
+    sdk.auth.setToken(tokenAccount.token);
 
     const savingsAccount = await SeiMoneyContract.getAccount(owner);
     walletStore.setSavingAccount(savingsAccount);
@@ -42,7 +42,7 @@ export function useAuth() {
     avatarURL?: string,
     name?: string
   ) => {
-    const account = await ApiService.createAccount({
+    const account = await sdk.accounts.createAccount({
       owner,
       emailAddress,
       avatarURL,

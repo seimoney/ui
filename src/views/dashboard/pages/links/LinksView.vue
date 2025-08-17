@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import type { Link as PaymentLink } from '../../../../types';
-import ApiService from '../../../../api/api-service';
 import { RouterLink } from 'vue-router';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const isLoading = ref(true);
 const links = ref<PaymentLink[]>([]);
+const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
 
 const getLinks = async () => {
     isLoading.value = true;
-    links.value = await ApiService.getPaymentLinks();
+    links.value = await sdk.paymentLinks.getPaymentLinks();
     isLoading.value = false;
 };
 

@@ -7,9 +7,11 @@ import { config } from '../../utils/wallet-config';
 import { signMessage } from '@wagmi/core';
 import { useWalletStore } from '../../stores/wallet';
 import { useWeb3Modal } from '@web3modal/wagmi/vue';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const route = useRoute();
 const contractId = route.params.id as string;
+const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
 
 const contract = ref<Contract | null>(null);
 const isLoading = ref(true);
@@ -21,7 +23,7 @@ const modal = useWeb3Modal();
 
 onMounted(async () => {
     try {
-        contract.value = await ApiService.getContract(contractId);
+        contract.value = await sdk.contracts.getContract(contractId);
     } catch (err) {
         error.value = 'Failed to load contract details';
     } finally {
@@ -52,7 +54,7 @@ const handleSignContract = async () => {
 
         const signature = await signMessage(config, { message });
 
-        const signed = await ApiService.signContract({
+        const signed = await sdk.contracts.signContract({
             contractId: contract.value.contractId,
             signature,
             expiresAt

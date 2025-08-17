@@ -2,23 +2,23 @@
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Link as PaymentLink, Activity } from '../../../../types';
-import ApiService from '../../../../api/api-service';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const route = useRoute();
 const router = useRouter();
+const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
 
 const isLoading = ref(true);
 const link = ref<PaymentLink | null>(null);
 const activities = ref<Activity[]>([]);
-const isRetryingPayment = ref(false);
 
 const linkId = route.params.id as string;
 
 const getLink = async () => {
     isLoading.value = true;
     try {
-        link.value = await ApiService.getPaymentLink(linkId);
-        activities.value = await ApiService.getActivitiesFor(linkId);
+        link.value = await sdk.paymentLinks.getPaymentLink(linkId);
+        activities.value = await sdk.analytics.getActivitiesFor(linkId);
     } catch (error) {
         console.error('Error fetching link:', error);
     }
@@ -206,7 +206,7 @@ onMounted(() => {
                             <span class="label">Payment URL:</span>
                             <div class="url-field">
                                 <span class="value url-text">{{ `https://seimoney.link/pay/${link.paymentId}`
-                                }}</span>
+                                    }}</span>
                                 <button @click="copyPaymentLink" class="copy-btn" title="Copy payment link">
                                     📋
                                 </button>

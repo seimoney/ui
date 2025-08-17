@@ -3,9 +3,12 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import type { UploadFile } from '../../../../types';
 import { tokens } from '../../../../utils/constants';
-import ApiService from '../../../../api/api-service';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
+
 
 const router = useRouter();
+const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
+
 
 const form = ref<UploadFile & { file: File | null; }>({
     name: '',
@@ -97,7 +100,7 @@ const handleSubmit = async () => {
     try {
         form.value.previewURL = null;
 
-        const uploaded = await ApiService.uploadFile(form.value, form.value.file as File);
+        const uploaded = await sdk.files.uploadFile(form.value, form.value.file as File);
 
         if (!uploaded) return;
 

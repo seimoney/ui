@@ -2,10 +2,10 @@
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Activity, GatedFile } from '../../../../types';
-import ApiService from '../../../../api/api-service';
 import SignatureMsg from '../../../../types/signature';
 import { signMessage } from '@wagmi/core';
 import { config } from '../../../../utils/wallet-config';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk/sei-money-sdk';
 const route = useRoute();
 const router = useRouter();
 
@@ -14,14 +14,15 @@ const file = ref<GatedFile | null>(null);
 const activities = ref<Activity[]>([]);
 const isDownloading = ref(false);
 const isDeleting = ref(false);
+const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
 
 const fileId = route.params.id as string;
 
 const getFile = async () => {
     isLoading.value = true;
     try {
-        file.value = await ApiService.getFile(fileId);
-        activities.value = await ApiService.getActivitiesFor(fileId);
+        file.value = await sdk.files.getFile(fileId);
+        activities.value = await sdk.analytics.getActivitiesFor(fileId);
     } catch (error) {
         console.error('Error fetching file:', error);
     }
@@ -39,7 +40,7 @@ const downloadFile = async () => {
 
         const signature = await signMessage(config, { message });
 
-        const { url } = await ApiService.downloadFile({ fileId, signature, expiresAt });
+        const { url } = await sdk.files.downloadFile({ fileId, signature, expiresAt });
 
         console.log(url);
 
@@ -61,7 +62,7 @@ const deleteFile = async () => {
 
         const signature = await signMessage(config, { message });
 
-        const deleted = await ApiService.deleteFile({ fileId, signature, expiresAt });
+        const deleted = await sdk.files.deleteFile({ fileId, signature, expiresAt });
 
         if (!deleted) return;
 

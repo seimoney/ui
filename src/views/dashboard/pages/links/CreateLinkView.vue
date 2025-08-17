@@ -3,12 +3,13 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import type { CreatePaymentLink } from '../../../../types';
 import { tokens } from '../../../../utils/constants';
-import ApiService from '../../../../api/api-service';
 import { useWalletStore } from '../../../../stores/wallet';
-import { formatUnits, parseUnits, type Hex } from 'viem';
+import { parseUnits, type Hex } from 'viem';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const router = useRouter();
 const walletStore = useWalletStore();
+const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
 
 const form = ref<CreatePaymentLink & { recipient?: Recipient; }>({
     description: '',
@@ -75,7 +76,7 @@ const handleSubmit = async () => {
     isLoading.value = true;
 
     try {
-        const createdLink = await ApiService.createPaymentLink({
+        const createdLink = await sdk.paymentLinks.createPaymentLink({
             ...form.value,
             amount: {
                 ...form.value.amount,

@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import type { File as GatedFile } from '../../types';
-import ApiService from '../../api/api-service';
+import type { GatedFile } from '../../types';
 import { useWalletStore } from '../../stores/wallet';
 import { useWeb3Modal } from '@web3modal/wagmi/vue';
 import { getWalletClient } from '@wagmi/core';
 import { config } from '../../utils/wallet-config';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 
 const route = useRoute();
 const fileId = route.params.id as string;
+const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
 
 const gatedFile = ref<GatedFile | null>(null);
 const downloadRes = ref<{ url: string; transaction: string; } | null>(null);
@@ -24,7 +25,7 @@ const walletStore = useWalletStore();
 
 onMounted(async () => {
     try {
-        gatedFile.value = await ApiService.getFile(fileId);
+        gatedFile.value = await sdk.files.getFile(fileId);
     } catch (err) {
         error.value = 'Failed to load file details';
     } finally {
@@ -46,9 +47,9 @@ const handleSignToPay = async () => {
     try {
         const walletClient = await getWalletClient(config);
 
-        ApiService.updateApiClient(walletClient);
+        sdk.updateWalletClient(walletClient as any);
 
-        downloadRes.value = await ApiService.fulfillFile({ fileId });
+        downloadRes.value = await sdk.files.fulfillFile({ fileId });
 
         if (!downloadRes.value) return;
 
@@ -127,7 +128,7 @@ const getFileTypeIcon = (fileType: string) => {
 
                         <div class="file-price">
                             <span class="amount">{{ gatedFile.amount.amount }} {{ gatedFile.amount.token.symbol
-                            }}</span>
+                                }}</span>
                             <img :src="gatedFile.amount.token.icon" :alt="gatedFile.amount.token.symbol"
                                 class="token-icon" />
                         </div>

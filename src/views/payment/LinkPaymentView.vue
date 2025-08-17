@@ -3,14 +3,15 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import type { Link as PaymentLink } from '../../types';
 import { type Hex } from 'viem';
-import ApiService from '../../api/api-service';
 import { useWalletStore } from '../../stores/wallet';
 import { useWeb3Modal } from '@web3modal/wagmi/vue';
 import { getWalletClient } from '@wagmi/core';
 import { config } from '../../utils/wallet-config';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const route = useRoute();
 const paymentId = route.params.id as Hex;
+const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
 
 const paymentLink = ref<PaymentLink | null>(null);
 const isLoading = ref(true);
@@ -24,7 +25,7 @@ const walletStore = useWalletStore();
 
 onMounted(async () => {
     try {
-        paymentLink.value = await ApiService.getPaymentLink(paymentId);
+        paymentLink.value = await sdk.paymentLinks.getPaymentLink(paymentId);
     } catch (err) {
         error.value = 'Failed to load payment link';
     } finally {
@@ -41,9 +42,9 @@ const handleSignToPay = async () => {
     try {
         const walletClient = await getWalletClient(config);
 
-        ApiService.updateApiClient(walletClient);
+        sdk.updateWalletClient(walletClient as any);
 
-        transaction.value = await ApiService.fulfillPaymentLink({ paymentId });
+        transaction.value = await sdk.paymentLinks.fulfillPaymentLink({ paymentId });
 
         if (!transaction.value) return;
 

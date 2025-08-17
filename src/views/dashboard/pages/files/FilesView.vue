@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import type { GatedFile } from '../../../../types';
-import ApiService from '../../../../api/api-service';
+import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
+
 const isLoading = ref(true);
 const files = ref<GatedFile[]>([]);
+const sdk = createSeiMoneySDK({ apiUrl: "https://api.seimoney.link" });
 
 const getFiles = async () => {
     isLoading.value = true;
-    files.value = await ApiService.getFiles();
+    files.value = await sdk.files.getFiles();
     isLoading.value = false;
 };
 
