@@ -6,6 +6,8 @@ import { TokenContract } from '../../../../smart_contract/erc20';
 import { formatUnits, parseUnits } from 'viem';
 import { tokens } from '../../../../utils/constants';
 import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
+import { getWalletClient } from '@wagmi/core';
+import { config } from '../../../../utils/wallet-config';
 
 const route = useRoute();
 const router = useRouter();
@@ -74,7 +76,10 @@ const selectToken = (token: Token) => {
 const retryPayment = async (activityId: string) => {
     isRetryingPayment.value = true;
     try {
-        await sdk.contracts.fulfillContractTransaction(activityId);
+        const walletClient = await getWalletClient(config);
+
+        await sdk.contracts.fulfillContractTransaction(activityId, walletClient as any);
+
         await getContract();
     } catch (error) {
         console.error('Error retrying payment:', error);
@@ -186,7 +191,7 @@ onMounted(() => {
                 <div class="section-card">
                     <h3>Add Funds</h3>
                     <p class="section-description">Add funds to this contract. Or transfer {{ depositForm.token.symbol
-                        }} to {{ contract.address }}</p>
+                    }} to {{ contract.address }}</p>
 
                     <form @submit.prevent="depositToAccount" class="deposit-form">
                         <div class="form-row">
@@ -295,7 +300,7 @@ onMounted(() => {
                             <span class="label">Token Address:</span>
                             <div class="address-field">
                                 <span class="value monospace">{{ formatAddress(contract.payroll.amount.token.address)
-                                    }}</span>
+                                }}</span>
                                 <button @click="copyToClipboard(contract.payroll.amount.token.address)" class="copy-btn"
                                     title="Copy token address">
                                     📋

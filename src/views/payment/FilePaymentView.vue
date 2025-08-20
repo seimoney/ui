@@ -47,14 +47,14 @@ const handleSignToPay = async () => {
     try {
         const walletClient = await getWalletClient(config);
 
-        sdk.updateWalletClient(walletClient as any);
-
-        downloadRes.value = await sdk.files.fulfillFile({ fileId });
+        downloadRes.value = await sdk.files.fulfillFile({ fileId }, walletClient as any);
 
         if (!downloadRes.value) return;
 
         isCompleted.value = true;
     } catch (err) {
+        console.log(err);
+
         error.value = 'Payment failed. Please try again.';
     } finally {
         isSigning.value = false;
@@ -128,7 +128,7 @@ const getFileTypeIcon = (fileType: string) => {
 
                         <div class="file-price">
                             <span class="amount">{{ gatedFile.amount.amount }} {{ gatedFile.amount.token.symbol
-                            }}</span>
+                                }}</span>
                             <img :src="gatedFile.amount.token.icon" :alt="gatedFile.amount.token.symbol"
                                 class="token-icon" />
                         </div>

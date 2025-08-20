@@ -8,7 +8,6 @@ type Token = {
   symbol: string;
   decimals: number;
   assetVersion: string;
-  priceUSD: number;
 };
 
 type ERC20Amount = {

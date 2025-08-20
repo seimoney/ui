@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 import type { CreatePaymentLink } from '../../../../types';
 import { tokens } from '../../../../utils/constants';
 import { useWalletStore } from '../../../../stores/wallet';
-import { parseUnits, type Hex } from 'viem';
+import { type Hex } from 'viem';
 import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 
 const router = useRouter();
@@ -76,16 +76,7 @@ const handleSubmit = async () => {
     isLoading.value = true;
 
     try {
-        const createdLink = await sdk.paymentLinks.createPaymentLink({
-            ...form.value,
-            amount: {
-                ...form.value.amount,
-                amount: parseUnits(
-                    form.value.amount.amount,
-                    form.value.amount.token.decimals
-                ).toString(),
-            },
-        });
+        const createdLink = await sdk.paymentLinks.createPaymentLink(form.value);
 
         if (!createdLink) {
             return;

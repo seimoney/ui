@@ -9,7 +9,6 @@ const tokens: Token[] = [
     decimals: 6,
     symbol: "USDC",
     assetVersion: "2",
-    priceUSD: 0.9998,
   },
 ];
 
