@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
-    "@seimoney/sdk": "^1.5.2",
+    "@seimoney/sdk": "^1.5.3",
     "@seimoney/sei-x402": "^0.4.31",
     "@wagmi/connectors": "^5.9.0",
     "@wagmi/core": "^2.18.0",
