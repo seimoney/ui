@@ -275,6 +275,30 @@ type Checkout = {
   logoURL: string;
   location: Location;
   schedule: Schedule;
+  totalRevenueUSD: number;
+  totalTestnetRevenueUSD: number;
+};
+
+export type CreateCheckout = {
+  name: string;
+  tagline?: string;
+  about: string;
+  category?: string;
+  logoURL?: string;
+  location: {
+    address: string;
+    city?: string;
+    zipCode?: string;
+    country?: string;
+  };
+  schedule: {
+    timezone: string;
+    workingHours: {
+      start?: string;
+      end?: string;
+    };
+    workingDays: number[];
+  };
 };
 
 type CreateProduct = {

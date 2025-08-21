@@ -7,17 +7,19 @@ import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 const isLoading = ref(true);
 const checkout = ref<Checkout | null>(null);
 const products = ref<Product[]>([]);
-const stats = ref({ totalProducts: 0, totalEarnings: '0', currency: 'USDC' });
 const showCreateCheckout = ref(false);
 const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
 const loadCheckoutData = async () => {
     isLoading.value = true;
     try {
-        const checkoutData = await sdk.products.getCheckout();
+        checkout.value = await sdk.products.getCheckoutWithAuth();
 
-        checkout.value = checkoutData;
-        products.value = await sdk.products.getProducts();
+        if (checkout.value) {
+            products.value = await sdk.products.getProducts(checkout.value.checkoutId);
+        } else {
+            showCreateCheckout.value = true;
+        }
     } catch (error) {
         showCreateCheckout.value = true;
         console.error('Error loading checkout data:', error);
@@ -92,14 +94,14 @@ onMounted(() => {
                 <div class="stat-card">
                     <div class="stat-icon">📦</div>
                     <div class="stat-content">
-                        <h3>{{ stats.totalProducts }}</h3>
+                        <h3>{{ products?.length }}</h3>
                         <p>Total Products</p>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">💰</div>
                     <div class="stat-content">
-                        <h3>{{ stats.totalEarnings }} {{ stats.currency }}</h3>
+                        <h3>${{ checkout.totalRevenueUSD + checkout.totalTestnetRevenueUSD }}</h3>
                         <p>Total Earnings</p>
                     </div>
                 </div>
@@ -138,7 +140,7 @@ onMounted(() => {
                                 <h3 class="product-name">{{ product.name }}</h3>
                                 <div class="product-price">
                                     <span class="amount">{{ product.amount.amount }} {{ product.amount.token.symbol
-                                        }}</span>
+                                    }}</span>
                                     <div class="network-badge">
                                         <span class="network-name">{{ product.network }}</span>
                                     </div>
@@ -158,7 +160,7 @@ onMounted(() => {
                                 </div>
                                 <div class="stat-item">
                                     <span class="stat-label">Created:</span>
-                                    <span class="stat-value">{{ formatDate(product.createdAt) }}</span>
+                                    <span class="stat-value">{{ formatDate(new Date(product.createdAt)) }}</span>
                                 </div>
                             </div>
 

@@ -12,11 +12,10 @@ const isSaving = ref(false);
 const checkout = ref<Checkout | null>(null);
 const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
 
-
 const getCheckout = async () => {
     isLoading.value = true;
     try {
-        checkout.value = await sdk.products.getCheckout();
+        checkout.value = await sdk.products.getCheckoutWithAuth();
     } catch (error) {
         console.error('Error loading checkout:', error);
     } finally {

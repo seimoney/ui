@@ -112,10 +112,24 @@ const router = createRouter({
             import("../views/dashboard/pages/checkout/CreateCheckoutView.vue"),
         },
         {
+          path: "checkout/settings",
+          name: "checkout-settings",
+          component: () =>
+            import(
+              "../views/dashboard/pages/checkout/CheckoutSettingsView.vue"
+            ),
+        },
+        {
           path: "checkout/product/:id",
           name: "checkout-product",
           component: () =>
             import("../views/dashboard/pages/products/ProductDetailView.vue"),
+        },
+        {
+          path: "products/create",
+          name: "products-create",
+          component: () =>
+            import("../views/dashboard/pages/products/CreateProductView.vue"),
         },
       ],
     },
