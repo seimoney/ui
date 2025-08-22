@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import type { Contract } from '../../../../types';
 import { RouterLink } from 'vue-router';
 import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
+import { toast } from 'vue3-toastify';
 
 const isLoading = ref(true);
 const contracts = ref<Contract[]>([]);
@@ -38,6 +39,7 @@ const formatDate = (date: Date) => {
 const copyToClipboard = async (text: string) => {
     try {
         await navigator.clipboard.writeText(text);
+        toast('Copied', { autoClose: 3000 });
     } catch (error) {
         console.error('Failed to copy to clipboard:', error);
     }

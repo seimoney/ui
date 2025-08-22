@@ -8,6 +8,7 @@ import { tokens } from '../../../../utils/constants';
 import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
 import { getWalletClient } from '@wagmi/core';
 import { config } from '../../../../utils/wallet-config';
+import { toast } from 'vue3-toastify';
 
 const route = useRoute();
 const router = useRouter();
@@ -122,6 +123,7 @@ const formatDate = (date: Date | string) => {
 const copyToClipboard = async (text: string) => {
     try {
         await navigator.clipboard.writeText(text);
+        toast('Copied', { autoClose: 3000 });
     } catch (error) {
         console.error('Failed to copy to clipboard:', error);
     }
@@ -191,7 +193,7 @@ onMounted(() => {
                 <div class="section-card">
                     <h3>Add Funds</h3>
                     <p class="section-description">Add funds to this contract. Or transfer {{ depositForm.token.symbol
-                    }} to {{ contract.address }}</p>
+                        }} to {{ contract.address }}</p>
 
                     <form @submit.prevent="depositToAccount" class="deposit-form">
                         <div class="form-row">
@@ -300,7 +302,7 @@ onMounted(() => {
                             <span class="label">Token Address:</span>
                             <div class="address-field">
                                 <span class="value monospace">{{ formatAddress(contract.payroll.amount.token.address)
-                                }}</span>
+                                    }}</span>
                                 <button @click="copyToClipboard(contract.payroll.amount.token.address)" class="copy-btn"
                                     title="Copy token address">
                                     📋

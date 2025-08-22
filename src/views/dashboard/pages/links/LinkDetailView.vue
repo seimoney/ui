@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Link as PaymentLink, Activity } from '../../../../types';
 import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
+import { toast } from 'vue3-toastify';
 
 const route = useRoute();
 const router = useRouter();
@@ -62,6 +63,7 @@ const formatDate = (date: Date | string) => {
 const copyToClipboard = async (text: string) => {
     try {
         await navigator.clipboard.writeText(text);
+        toast('Copied', { autoClose: 3000 });
     } catch (error) {
         console.error('Failed to copy to clipboard:', error);
     }
@@ -206,7 +208,7 @@ onMounted(() => {
                             <span class="label">Payment URL:</span>
                             <div class="url-field">
                                 <span class="value url-text">{{ `https://seimoney.link/pay/${link.paymentId}`
-                                    }}</span>
+                                }}</span>
                                 <button @click="copyPaymentLink" class="copy-btn" title="Copy payment link">
                                     📋
                                 </button>

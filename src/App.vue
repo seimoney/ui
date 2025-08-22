@@ -7,6 +7,8 @@ import { useWalletStore } from './stores/wallet';
 import { createWeb3Modal } from '@web3modal/wagmi/vue';
 import { watchAccount } from '@wagmi/core';
 
+import 'vue3-toastify/dist/index.css';
+
 const { initAuth } = useAuth();
 const { initTheme } = useTheme();
 const walletStore = useWalletStore();

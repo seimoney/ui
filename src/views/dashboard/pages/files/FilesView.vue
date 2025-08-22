@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import type { GatedFile } from '../../../../types';
 import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
+import { toast } from 'vue3-toastify';
 
 const isLoading = ref(true);
 const files = ref<GatedFile[]>([]);
@@ -36,7 +37,7 @@ const getFileTypeIcon = (fileType: string) => {
 const copyFileLink = (fileId: string) => {
     const url = `${window.location.origin}/pay/file/${fileId}`;
     navigator.clipboard.writeText(url);
-    console.log('File link copied:', url);
+    toast('Copied', { autoClose: 3000 });
 };
 
 onMounted(() => {

@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import type { Link as PaymentLink } from '../../../../types';
 import { RouterLink } from 'vue-router';
 import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
+import { toast } from 'vue3-toastify';
 
 const isLoading = ref(true);
 const links = ref<PaymentLink[]>([]);
@@ -41,6 +42,7 @@ const formatDate = (date: Date) => {
 const copyLink = (linkId: string) => {
     const url = `${window.location.origin}/pay/${linkId}`;
     navigator.clipboard.writeText(url);
+    toast('Copied', { autoClose: 3000 });
 };
 
 

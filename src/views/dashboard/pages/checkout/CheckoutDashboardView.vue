@@ -9,6 +9,7 @@ const checkout = ref<Checkout | null>(null);
 const products = ref<Product[]>([]);
 const showCreateCheckout = ref(false);
 const sdk = createSeiMoneySDK({ apiUrl: import.meta.env.VITE_API_URL });
+import { toast } from 'vue3-toastify';
 
 const loadCheckoutData = async () => {
     isLoading.value = true;
@@ -35,6 +36,26 @@ const formatDate = (date: Date) => {
         month: 'short',
         day: 'numeric'
     });
+};
+
+const copyProductLink = (product: Product) => {
+    const url = `${window.location.origin}/checkout/products/${product.productId}`;
+    copyToClipboard(url);
+};
+
+const copyCheckoutLink = () => {
+    const url = `${window.location.origin}/checkout/${checkout.value?.checkoutId}`;
+    copyToClipboard(url);
+};
+
+
+const copyToClipboard = async (text: string) => {
+    try {
+        await navigator.clipboard.writeText(text);
+        toast('Copied', { autoClose: 3000 });
+    } catch (error) {
+        console.error('Failed to copy to clipboard:', error);
+    }
 };
 
 onMounted(() => {
@@ -86,6 +107,9 @@ onMounted(() => {
                     <RouterLink to="/dashboard/products/create" class="btn btn-primary">
                         + Add Product
                     </RouterLink>
+                    <button @click="copyCheckoutLink" class="btn btn-primary">
+                        Share Store
+                    </button>
                 </div>
             </div>
 
@@ -140,7 +164,7 @@ onMounted(() => {
                                 <h3 class="product-name">{{ product.name }}</h3>
                                 <div class="product-price">
                                     <span class="amount">{{ product.amount.amount }} {{ product.amount.token.symbol
-                                    }}</span>
+                                        }}</span>
                                     <div class="network-badge">
                                         <span class="network-name">{{ product.network }}</span>
                                     </div>
@@ -168,7 +192,7 @@ onMounted(() => {
                                 <RouterLink :to="`/dashboard/products/${product.productId}`" class="btn btn-secondary">
                                     View Details
                                 </RouterLink>
-                                <button class="btn btn-outline">
+                                <button class="btn btn-outline" @click="copyProductLink(product)">
                                     Copy product link
                                 </button>
                             </div>

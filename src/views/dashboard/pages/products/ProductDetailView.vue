@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import type { Product, Activity } from '../../../../types';
 import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
+import { toast } from 'vue3-toastify';
 
 const route = useRoute();
 const router = useRouter();
@@ -43,10 +44,19 @@ const deleteProduct = async () => {
     isDeleting.value = false;
 };
 
+const copyToClipboard = async (text: string) => {
+    try {
+        await navigator.clipboard.writeText(text);
+        toast('Copied', { autoClose: 3000 });
+    } catch (error) {
+        console.error('Failed to copy to clipboard:', error);
+    }
+};
+
 const copyProductLink = () => {
     if (!product.value) return;
-    const url = `${window.location.origin}/checkout/${product.value.checkoutId}/product/${product.value.productId}`;
-    navigator.clipboard.writeText(url);
+    const url = `${window.location.origin}/checkout/products/${product.value.productId}`;
+    copyToClipboard(url);
 };
 
 const getActivityStatusColor = (status: string) => {
@@ -72,13 +82,7 @@ const formatDate = (date: Date | string) => {
     });
 };
 
-const copyToClipboard = async (text: string) => {
-    try {
-        await navigator.clipboard.writeText(text);
-    } catch (error) {
-        console.error('Failed to copy to clipboard:', error);
-    }
-};
+
 
 const selectImage = (index: number) => {
     selectedImageIndex.value = index;

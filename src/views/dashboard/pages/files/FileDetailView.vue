@@ -6,6 +6,7 @@ import SignatureMsg from '../../../../types/signature';
 import { signMessage } from '@wagmi/core';
 import { config } from '../../../../utils/wallet-config';
 import { createSeiMoneySDK } from '@seimoney/sdk/src/sdk';
+import { toast } from 'vue3-toastify';
 const route = useRoute();
 const router = useRouter();
 
@@ -101,6 +102,7 @@ const formatDate = (date: Date | string) => {
 const copyToClipboard = async (text: string) => {
     try {
         await navigator.clipboard.writeText(text);
+        toast('Copied', { autoClose: 3000 });
     } catch (error) {
         console.error('Failed to copy to clipboard:', error);
     }
