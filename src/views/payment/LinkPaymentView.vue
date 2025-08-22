@@ -94,7 +94,7 @@ const formatAddress = (address: string) => {
                     <h2>{{ paymentLink.description }}</h2>
                     <div class="payment-amount">
                         <span class="amount">{{ paymentLink.amount.amount }} {{ paymentLink.amount.token.symbol
-                        }}</span>
+                            }}</span>
                         <img :src="paymentLink.amount.token.icon" :alt="paymentLink.amount.token.symbol"
                             class="token-icon" />
                     </div>
@@ -106,7 +106,7 @@ const formatAddress = (address: string) => {
                         <div class="detail-item">
                             <span class="label">Amount:</span>
                             <span class="value">{{ paymentLink.amount.amount }} {{ paymentLink.amount.token.symbol
-                            }}</span>
+                                }}</span>
                         </div>
                         <div class="detail-item">
                             <span class="label">Token:</span>
@@ -146,8 +146,7 @@ const formatAddress = (address: string) => {
                     <a :href="encodeURI(`https://ai.seimoney.link?message=Complete this payment link ${paymentLink.paymentId}`)"
                         target="_blank">
                         <button class="btn btn-outline">
-                            <span v-if="isSigning">Signing Transaction...</span>
-                            <span v-else>Sign to Pay</span>
+                            <span>Pay with AI Agent</span>
                         </button>
                     </a>
                 </div>

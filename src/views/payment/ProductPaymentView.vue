@@ -73,14 +73,6 @@ const handlePayment = async () => {
     }
 };
 
-const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-};
-
 onMounted(() => {
     loadProduct();
 });
@@ -220,6 +212,15 @@ onMounted(() => {
                             <span v-else-if="product.availableInStock === 0">Sold Out</span>
                             <span v-else>Purchase Now</span>
                         </button>
+
+                        <p class="or">Or</p>
+
+                        <a :href="encodeURI(`https://ai.seimoney.link?message=Complete this product payment link ${product.productId}`)"
+                            target="_blank">
+                            <button class="btn btn-outline">
+                                <span>Pay with AI Agent</span>
+                            </button>
+                        </a>
                     </div>
 
                     <div class="payment-info">
@@ -589,6 +590,12 @@ onMounted(() => {
     margin-bottom: 24px;
 }
 
+.payment-actions .or {
+    margin: 20px 0;
+    text-align: center;
+    color: var(--text-primary);
+}
+
 .btn {
     width: 100%;
     padding: 16px 24px;
@@ -603,6 +610,12 @@ onMounted(() => {
 .btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #667eea;
+    border: 1px solid #667eea;
 }
 
 .btn-primary:hover:not(:disabled) {

@@ -176,6 +176,15 @@ const getFileTypeIcon = (fileType: string) => {
                         <span v-if="isSigning">Processing Payment...</span>
                         <span v-else>Sign to Purchase & Download</span>
                     </button>
+
+                    <p class="or">Or</p>
+
+                    <a :href="encodeURI(`https://ai.seimoney.link?message=Complete this gate file payment link ${gatedFile.fileId}`)"
+                        target="_blank">
+                        <button class="btn btn-outline">
+                            <span>Pay with AI Agent</span>
+                        </button>
+                    </a>
                 </div>
 
                 <div class="payment-info">
@@ -450,6 +459,12 @@ const getFileTypeIcon = (fileType: string) => {
     margin-bottom: 24px;
 }
 
+.payment-actions .or {
+    margin: 20px 0;
+    text-align: center;
+    color: var(--text-primary);
+}
+
 .btn {
     width: 100%;
     padding: 16px 24px;
@@ -459,6 +474,12 @@ const getFileTypeIcon = (fileType: string) => {
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.2s ease;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #667eea;
+    border: 1px solid #667eea;
 }
 
 .btn-primary {
