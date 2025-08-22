@@ -94,7 +94,7 @@ const formatAddress = (address: string) => {
                     <h2>{{ paymentLink.description }}</h2>
                     <div class="payment-amount">
                         <span class="amount">{{ paymentLink.amount.amount }} {{ paymentLink.amount.token.symbol
-                            }}</span>
+                        }}</span>
                         <img :src="paymentLink.amount.token.icon" :alt="paymentLink.amount.token.symbol"
                             class="token-icon" />
                     </div>
@@ -106,7 +106,7 @@ const formatAddress = (address: string) => {
                         <div class="detail-item">
                             <span class="label">Amount:</span>
                             <span class="value">{{ paymentLink.amount.amount }} {{ paymentLink.amount.token.symbol
-                                }}</span>
+                            }}</span>
                         </div>
                         <div class="detail-item">
                             <span class="label">Token:</span>
@@ -140,6 +140,16 @@ const formatAddress = (address: string) => {
                         <span v-if="isSigning">Signing Transaction...</span>
                         <span v-else>Sign to Pay</span>
                     </button>
+
+                    <p class="or">Or</p>
+
+                    <a :href="encodeURI(`https://ai.seimoney.link?message=Complete this payment link ${paymentLink.paymentId}`)"
+                        target="_blank">
+                        <button class="btn btn-outline">
+                            <span v-if="isSigning">Signing Transaction...</span>
+                            <span v-else>Sign to Pay</span>
+                        </button>
+                    </a>
                 </div>
 
                 <div class="payment-info">
@@ -337,6 +347,12 @@ const formatAddress = (address: string) => {
     margin-bottom: 24px;
 }
 
+.payment-actions .or {
+    margin: 20px 0;
+    text-align: center;
+    color: var(--text-primary);
+}
+
 .btn {
     width: 100%;
     padding: 16px 24px;
@@ -346,6 +362,12 @@ const formatAddress = (address: string) => {
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.2s ease;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #667eea;
+    border: 1px solid #667eea;
 }
 
 .btn-primary {
