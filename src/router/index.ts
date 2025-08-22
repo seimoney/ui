@@ -131,7 +131,23 @@ const router = createRouter({
           component: () =>
             import("../views/dashboard/pages/products/CreateProductView.vue"),
         },
+        {
+          path: "products/:id",
+          name: "products-product",
+          component: () =>
+            import("../views/dashboard/pages/products/ProductDetailView.vue"),
+        },
       ],
+    },
+    {
+      path: "/checkout/:id",
+      name: "checkout-products",
+      component: () => import("../views/checkout/CheckoutView.vue"),
+    },
+    {
+      path: "/checkout/products/:id",
+      name: "checkout-products-product",
+      component: () => import("../views/payment/ProductPaymentView.vue"),
     },
     {
       path: "/pay/:id",
