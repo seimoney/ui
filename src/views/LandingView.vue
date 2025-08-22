@@ -99,6 +99,8 @@ onUnmounted(() => {
                     </div>
 
                     <div class="nav-actions">
+                        <a href="https://ai.seimoney.link" target="_blank" class="btn btn-outline">Chat with SeiMoney
+                            AI</a>
                         <a href="https://www.x402.org" target="_blank" class="btn btn-outline">What's x402?</a>
                         <router-link to="/login" class="btn btn-primary">Launch App</router-link>
                     </div>

@@ -37,7 +37,7 @@ onUnmounted(() => {
                 </div>
 
                 <div class="nav-actions">
-                    <a href="#" class="btn btn-outline">Launch App</a>
+                    <RouterLink to="/login" class="btn btn-outline">Launch App</RouterLink>
                 </div>
 
                 <button class="mobile-menu-btn" @click="toggleMobileMenu">
