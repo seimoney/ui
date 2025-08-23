@@ -76,16 +76,20 @@ watch(computed(() => walletStore.savingsAccount), () => {
 
 
 const createsavingsAccount = async () => {
+    if (!walletStore.address) return;
+
     try {
         isCreatingAccount.value = true;
 
-        const account = await SeiMoneyContract.createAccount();
+        const txHash = await SeiMoneyContract.createAccount();
 
-        if (!account) {
+        if (!txHash) {
             return;
         }
 
-        walletStore.setSavingAccount(account);
+        const savingsAccount = await SeiMoneyContract.getAccount(walletStore.address);
+        walletStore.setSavingAccount(savingsAccount);
+        if (savingsAccount) SavingsAccountContract.setAddress(savingsAccount);
 
         getSavingsAccount();
     } catch (error) {
