@@ -82,7 +82,7 @@ const handleSubmit = async () => {
             return;
         }
 
-        router.push('/dashboard/links');
+        router.push('/links');
     } catch (error) {
         console.error('Failed to create payment link:', error);
     } finally {

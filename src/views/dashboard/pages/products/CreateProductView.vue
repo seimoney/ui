@@ -89,7 +89,7 @@ const createProduct = async () => {
     isLoading.value = true;
     try {
         await sdk.products.createProduct(form.value, images.value);
-        router.push('/dashboard/checkout');
+        router.push('/checkout');
     } catch (error) {
         console.error('Error creating product:', error);
     }
@@ -170,7 +170,7 @@ const updateTokenAddress = () => {
                             <input id="stock" v-model.number="form.availableInStock" type="number" min="1"
                                 :class="{ 'error': errors.availableInStock }" />
                             <span v-if="errors.availableInStock" class="error-message">{{ errors.availableInStock
-                                }}</span>
+                            }}</span>
                         </div>
 
                         <div class="form-group">

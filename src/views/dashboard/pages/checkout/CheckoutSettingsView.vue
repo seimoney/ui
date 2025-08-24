@@ -40,7 +40,7 @@ const saveSettings = async () => {
     try {
         await new Promise(resolve => setTimeout(resolve, 2000));
 
-        router.push('/dashboard/checkout');
+        router.push('/checkout');
     } catch (error) {
         console.error('Error saving settings:', error);
     } finally {

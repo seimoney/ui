@@ -104,7 +104,7 @@ const handleSubmit = async () => {
 
         if (!uploaded) return;
 
-        router.push('/dashboard/files');
+        router.push('/files');
     } catch (error) {
         console.error('Failed to upload file:', error);
     } finally {

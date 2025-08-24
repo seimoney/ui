@@ -208,7 +208,7 @@ onMounted(() => {
                             <span class="label">Payment URL:</span>
                             <div class="url-field">
                                 <span class="value url-text">{{ `https://seimoney.link/pay/${link.paymentId}`
-                                }}</span>
+                                    }}</span>
                                 <button @click="copyPaymentLink" class="copy-btn" title="Copy payment link">
                                     📋
                                 </button>
@@ -289,7 +289,7 @@ onMounted(() => {
         <div v-else class="error-state">
             <h2>Payment link not found</h2>
             <p>The requested payment link could not be found.</p>
-            <button @click="router.push('/dashboard/links')" class="btn btn-primary">
+            <button @click="router.push('/links')" class="btn btn-primary">
                 Back to Links
             </button>
         </div>

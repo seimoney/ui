@@ -36,7 +36,7 @@ const deleteProduct = async () => {
         // const deleted = await sdk.products.deleteProduct(productId);
 
         // if (deleted) {
-        //     router.push('/dashboard/checkout');
+        //     router.push('/checkout');
         // }
     } catch (error) {
         console.error('Error deleting product:', error);
@@ -244,7 +244,7 @@ onMounted(() => {
                             <div class="url-field">
                                 <span class="value url-text">{{
                                     `https://seimoney.link/checkout/${product.checkoutId}/product/${product.productId}`
-                                    }}</span>
+                                }}</span>
                                 <button @click="copyProductLink" class="copy-btn" title="Copy product link">
                                     📋
                                 </button>
@@ -318,7 +318,7 @@ onMounted(() => {
         <div v-else class="error-state">
             <h2>Product not found</h2>
             <p>The requested product could not be found.</p>
-            <button @click="router.push('/dashboard/checkout')" class="btn btn-primary">
+            <button @click="router.push('/checkout')" class="btn btn-primary">
                 Back to Checkout
             </button>
         </div>

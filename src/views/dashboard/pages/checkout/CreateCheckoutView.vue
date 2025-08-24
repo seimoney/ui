@@ -95,7 +95,7 @@ const handleSubmit = async () => {
             throw new Error('Failed to create checkout');
         }
 
-        router.push('/dashboard/checkout');
+        router.push('/checkout');
     } catch (error) {
         console.error('Failed to create checkout:', error);
         errors.value.submit = 'Failed to create checkout. Please try again.';

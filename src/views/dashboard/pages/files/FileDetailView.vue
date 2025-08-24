@@ -67,7 +67,7 @@ const deleteFile = async () => {
 
         if (!deleted) return;
 
-        router.push('/dashboard/files');
+        router.push('/files');
     } catch (error) {
         console.error('Error deleting file:', error);
 
@@ -325,7 +325,7 @@ onMounted(() => {
         <div v-else class="error-state">
             <h2>File not found</h2>
             <p>The requested file could not be found.</p>
-            <button @click="router.push('/dashboard/files')" class="btn btn-primary">
+            <button @click="router.push('/files')" class="btn btn-primary">
                 Back to Files
             </button>
         </div>

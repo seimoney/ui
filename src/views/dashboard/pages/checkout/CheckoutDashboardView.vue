@@ -164,7 +164,7 @@ onMounted(() => {
                                 <h3 class="product-name">{{ product.name }}</h3>
                                 <div class="product-price">
                                     <span class="amount">{{ product.amount.amount }} {{ product.amount.token.symbol
-                                    }}</span>
+                                        }}</span>
                                     <div class="network-badge">
                                         <span class="network-name">{{ product.network }}</span>
                                     </div>
@@ -189,7 +189,7 @@ onMounted(() => {
                             </div>
 
                             <div class="product-actions">
-                                <RouterLink :to="`/dashboard/products/${product.productId}`" class="btn btn-secondary">
+                                <RouterLink :to="`/products/${product.productId}`" class="btn btn-secondary">
                                     View Details
                                 </RouterLink>
                                 <button class="btn btn-outline" @click="copyProductLink(product)">

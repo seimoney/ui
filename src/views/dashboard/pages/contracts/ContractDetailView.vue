@@ -193,7 +193,7 @@ onMounted(() => {
                 <div class="section-card">
                     <h3>Add Funds</h3>
                     <p class="section-description">Add funds to this contract. Or transfer {{ depositForm.token.symbol
-                        }} to {{ contract.address }}</p>
+                    }} to {{ contract.address }}</p>
 
                     <form @submit.prevent="depositToAccount" class="deposit-form">
                         <div class="form-row">
@@ -302,7 +302,7 @@ onMounted(() => {
                             <span class="label">Token Address:</span>
                             <div class="address-field">
                                 <span class="value monospace">{{ formatAddress(contract.payroll.amount.token.address)
-                                    }}</span>
+                                }}</span>
                                 <button @click="copyToClipboard(contract.payroll.amount.token.address)" class="copy-btn"
                                     title="Copy token address">
                                     📋
@@ -401,7 +401,7 @@ onMounted(() => {
         <div v-else class="error-state">
             <h2>Contract not found</h2>
             <p>The requested contract could not be found.</p>
-            <button @click="router.push('/dashboard/contracts')" class="btn btn-primary">
+            <button @click="router.push('/contracts')" class="btn btn-primary">
                 Back to Contracts
             </button>
         </div>

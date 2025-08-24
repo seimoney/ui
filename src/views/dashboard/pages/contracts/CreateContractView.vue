@@ -138,7 +138,7 @@ const handleSubmit = async () => {
 
         if (!created) return;
 
-        router.push('/dashboard/contracts');
+        router.push('/contracts');
     } catch (error) {
         console.error('Failed to create contract:', error);
     } finally {
