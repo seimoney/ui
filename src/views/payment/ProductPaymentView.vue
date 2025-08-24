@@ -212,15 +212,6 @@ onMounted(() => {
                             <span v-else-if="product.availableInStock === 0">Sold Out</span>
                             <span v-else>Purchase Now</span>
                         </button>
-
-                        <p class="or">Or</p>
-
-                        <a :href="encodeURI(`https://ai.seimoney.link?message=Complete this product payment link ${product.productId}`)"
-                            target="_blank">
-                            <button class="btn btn-outline">
-                                <span>Pay with AI Agent</span>
-                            </button>
-                        </a>
                     </div>
 
                     <div class="payment-info">
