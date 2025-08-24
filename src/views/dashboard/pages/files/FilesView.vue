@@ -52,7 +52,7 @@ onMounted(() => {
                 <h1>Files</h1>
                 <p>Manage your premium content and digital products</p>
             </div>
-            <router-link to="/dashboard/files/upload" class="btn btn-primary">
+            <router-link to="/files/upload" class="btn btn-primary">
                 + Upload File
             </router-link>
         </div>
@@ -70,7 +70,7 @@ onMounted(() => {
                 </div>
                 <h3>No gated files yet</h3>
                 <p>Upload your first premium content to start monetizing</p>
-                <router-link to="/dashboard/files/upload" class="btn btn-primary">
+                <router-link to="/files/upload" class="btn btn-primary">
                     Upload File
                 </router-link>
             </div>

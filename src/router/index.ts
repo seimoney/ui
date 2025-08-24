@@ -12,11 +12,6 @@ const router = createRouter({
   },
   routes: [
     {
-      path: "/",
-      name: "Landing",
-      component: () => import("../views/LandingView.vue"),
-    },
-    {
       path: "/login",
       name: "Login",
       component: () => import("../views/account/LoginView.vue"),
@@ -28,12 +23,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/dashboard",
+      path: "/",
       component: () => import("../views/dashboard/DashboardView.vue"),
       meta: { requiresAuth: true },
       children: [
         {
-          path: "/dashboard",
+          path: "/",
           name: "Overview",
           component: () => import("../views/dashboard/pages/OverviewView.vue"),
         },
@@ -173,7 +168,7 @@ router.beforeEach((to, _, next) => {
   if (to.meta.requiresAuth && !walletConnect.account) {
     next("/login");
   } else if (to.path === "/login" && walletConnect.account) {
-    next("/dashboard");
+    next("/");
   } else {
     next();
   }

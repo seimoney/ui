@@ -99,7 +99,7 @@ onMounted(async () => {
                             </div>
                             <div class="chart-labels">
                                 <span v-for="label in Object.keys(analytics.recentRevenues)" :key="label">{{ label
-                                    }}</span>
+                                }}</span>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@ onMounted(async () => {
                             </div>
                             <div class="chart-labels">
                                 <span v-for="label in Object.keys(analytics.activeContracts)" :key="label">{{ label
-                                    }}</span>
+                                }}</span>
                             </div>
                         </div>
                     </div>
@@ -152,7 +152,7 @@ onMounted(async () => {
             <div class="actions-section">
                 <h3>Quick Actions</h3>
                 <div class="actions-grid">
-                    <router-link to="/dashboard/links/create" class="action-card">
+                    <router-link to="/links/create" class="action-card">
                         <div class="action-icon">
                             <i class="mdi mdi-link-variant"></i>
                         </div>
@@ -160,7 +160,7 @@ onMounted(async () => {
                         <p>Generate a new payment link</p>
                     </router-link>
 
-                    <router-link to="/dashboard/contracts/create" class="action-card">
+                    <router-link to="/contracts/create" class="action-card">
                         <div class="action-icon">
                             <i class="mdi mdi-file-document"></i>
                         </div>
@@ -168,7 +168,7 @@ onMounted(async () => {
                         <p>Create a payroll contract</p>
                     </router-link>
 
-                    <router-link to="/dashboard/files/upload" class="action-card">
+                    <router-link to="/files/upload" class="action-card">
                         <div class="action-icon">
                             <i class="mdi mdi-folder-upload"></i>
                         </div>

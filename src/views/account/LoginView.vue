@@ -34,7 +34,7 @@ const handleLogin = async () => {
             errorLogin.value = 'Account not found. Please create an account.';
         }
 
-        router.push('/dashboard');
+        router.push('/');
     } catch (err) {
         errorLogin.value = 'Login failed. Please try again.';
     } finally {
@@ -68,7 +68,7 @@ const handleCreateAccount = async () => {
             errorLogin.value = 'Failed to create account. Please try again.';
         }
 
-        router.push('/dashboard');
+        router.push('/');
     } catch (err) {
         error.value = 'Create account failed. Please try again.';
     } finally {

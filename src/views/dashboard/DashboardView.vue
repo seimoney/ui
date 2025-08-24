@@ -11,12 +11,12 @@ const sidebarCollapsed = ref(false);
 const { isDark, toggleTheme } = useTheme();
 
 const navigation = [
-    { name: 'Overview', path: '/dashboard', icon: 'mdi mdi-view-dashboard' },
-    { name: 'Payment Links', path: '/dashboard/links', icon: 'mdi mdi-link-variant' },
-    { name: 'Files', path: '/dashboard/files', icon: 'mdi mdi-folder-lock' },
-    { name: 'Checkout', path: '/dashboard/checkout', icon: 'mdi mdi-cart' },
-    { name: 'Payrolls', path: '/dashboard/contracts', icon: 'mdi mdi-file-document' },
-    { name: 'Smart Account', path: '/dashboard/smart-account', icon: 'mdi mdi-robot' }
+    { name: 'Overview', path: '/', icon: 'mdi mdi-view-dashboard' },
+    { name: 'Payment Links', path: '/links', icon: 'mdi mdi-link-variant' },
+    { name: 'Files', path: '/files', icon: 'mdi mdi-folder-lock' },
+    { name: 'Checkout', path: '/checkout', icon: 'mdi mdi-cart' },
+    { name: 'Payrolls', path: '/contracts', icon: 'mdi mdi-file-document' },
+    { name: 'Smart Account', path: '/smart-account', icon: 'mdi mdi-robot' }
 ];
 
 const toggleSidebarCollapse = () => {

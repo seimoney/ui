@@ -58,7 +58,7 @@ onMounted(() => {
                 <h1>Payment Links</h1>
                 <p>Create and manage payment links for your products and services</p>
             </div>
-            <router-link to="/dashboard/links/create" class="btn btn-primary">
+            <router-link to="/links/create" class="btn btn-primary">
                 + Create Link
             </router-link>
         </div>
@@ -74,7 +74,7 @@ onMounted(() => {
                 <div class="empty-icon">🔗</div>
                 <h3>No payment links yet</h3>
                 <p>Create your first payment link to start accepting payments</p>
-                <router-link to="/dashboard/links/create" class="btn btn-primary">
+                <router-link to="/links/create" class="btn btn-primary">
                     Create Payment Link
                 </router-link>
             </div>

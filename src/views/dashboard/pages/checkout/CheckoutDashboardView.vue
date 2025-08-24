@@ -77,7 +77,7 @@ onMounted(() => {
                 <div class="create-icon">🏪</div>
                 <h2>Create Your Checkout</h2>
                 <p>Set up your digital storefront to start selling products and accepting payments</p>
-                <RouterLink to="/dashboard/checkout/create" class="btn btn-primary">
+                <RouterLink to="/checkout/create" class="btn btn-primary">
                     Create Checkout
                 </RouterLink>
             </div>
@@ -101,10 +101,10 @@ onMounted(() => {
                     </div>
                 </div>
                 <div class="header-actions">
-                    <RouterLink to="/dashboard/checkout/settings" class="btn btn-outline">
+                    <RouterLink to="/checkout/settings" class="btn btn-outline">
                         ⚙️ Settings
                     </RouterLink>
-                    <RouterLink to="/dashboard/products/create" class="btn btn-primary">
+                    <RouterLink to="/products/create" class="btn btn-primary">
                         + Add Product
                     </RouterLink>
                     <button @click="copyCheckoutLink" class="btn btn-primary">
@@ -135,7 +135,7 @@ onMounted(() => {
             <div class="products-section">
                 <div class="section-header">
                     <h2>Your Products</h2>
-                    <RouterLink to="/dashboard/products/create" class="btn btn-secondary">
+                    <RouterLink to="/products/create" class="btn btn-secondary">
                         + Add Product
                     </RouterLink>
                 </div>
@@ -144,7 +144,7 @@ onMounted(() => {
                     <div class="empty-icon">📦</div>
                     <h3>No products yet</h3>
                     <p>Add your first product to start selling</p>
-                    <RouterLink to="/dashboard/products/create" class="btn btn-primary">
+                    <RouterLink to="/products/create" class="btn btn-primary">
                         Add Product
                     </RouterLink>
                 </div>
@@ -164,7 +164,7 @@ onMounted(() => {
                                 <h3 class="product-name">{{ product.name }}</h3>
                                 <div class="product-price">
                                     <span class="amount">{{ product.amount.amount }} {{ product.amount.token.symbol
-                                        }}</span>
+                                    }}</span>
                                     <div class="network-badge">
                                         <span class="network-name">{{ product.network }}</span>
                                     </div>

@@ -57,7 +57,7 @@ onMounted(() => {
                 <h1>Payrolls</h1>
                 <p>Manage your payroll contracts and agreements</p>
             </div>
-            <router-link to="/dashboard/contracts/create" class="btn btn-primary">
+            <router-link to="/contracts/create" class="btn btn-primary">
                 + Create Contract
             </router-link>
         </div>
@@ -73,7 +73,7 @@ onMounted(() => {
                 <div class="empty-icon">📋</div>
                 <h3>No contracts yet</h3>
                 <p>Create your first payroll contract to get started</p>
-                <router-link to="/dashboard/contracts/create" class="btn btn-primary">
+                <router-link to="/contracts/create" class="btn btn-primary">
                     Create Contract
                 </router-link>
             </div>
