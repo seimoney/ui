@@ -176,15 +176,6 @@ const getFileTypeIcon = (fileType: string) => {
                         <span v-if="isSigning">Processing Payment...</span>
                         <span v-else>Sign to Purchase & Download</span>
                     </button>
-
-                    <p class="or">Or</p>
-
-                    <a :href="encodeURI(`https://ai.seimoney.link?message=Complete this gate file payment link ${gatedFile.fileId}`)"
-                        target="_blank">
-                        <button class="btn btn-outline">
-                            <span>Pay with AI Agent</span>
-                        </button>
-                    </a>
                 </div>
 
                 <div class="payment-info">
